@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/reset.min.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<!--头部-->
+<header class="header">
+    <!--导航-->
+    <nav class="nav">
+        <div class="wrap">
+            <a href="###" class="logo">
+                <img src="img/logo.png" alt="">
+            </a>
+            <ul>
+                <li><a href="###">首页 <span></span></a></li>
+                <li><a href="###">下载 <span></span></a></li>
+                <li><a href="###">论坛 <span></span></a></li>
+                <li><a href="###">International<span></span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!--轮播图-->
+    <div class="banner">
+        <div class="slide slideA slideCur">
+            <dl>
+                <dt>
+                    <img src="img/bao-2.png" alt="">
+                </dt>
+                <dd class="one">
+                    <img src="img/st-2.png" alt="">
+                </dd>
+                <dd class="other">
+                    全新chrome内核，内存占用低，轻巧炫酷皮肤
+                </dd>
+            </dl>
+        </div>
+        <div class="slide slideB">
+            <div class="slideImg1">
+                <img src="img/bao.png" alt="">
+            </div>
+            <div class="slideImg2">
+                <img src="img/nt-1.png" alt="">
+            </div>
+        </div>
+        <a href="###" class="prev" data-attr="prev">
+            <img src="img/l-btn.png" alt="">
+        </a>
+        <a href="###" class="next" data-attr="next">
+            <img src="img/r-btn.png" alt="">
+        </a>
+    </div>
+</header>
+<div class="list">
+    <ul>
+        <li><span class="img1"></span>
+            <h4>windows版</h4>
+            <p>内存占用最多的极速浏览器</p>
+        </li>
+        <li><span class="img2"></span>
+            <h4>手机版</h4>
+            <p>内存占用最多的极速浏览器</p>
+        </li>
+        <li><span class="img3"></span>
+            <h4>豹米空气净化大师</h4>
+            <p>内存占用最多的极速浏览器</p>
+        </li>
+    </ul>
+
+</div>
+<section>
+    <div class="pic">
+    <img src="" alt="">
+    </div>
+</section>
+<script>
+    /*实现的思路
+     * 1.对左右箭头绑定click事件
+     * 2.初始化
+     *   1）把所有banner的上slideCur这个类名去掉
+     *   2）所有的banner隐藏
+     *   3）获得当前显示banner的索引
+     *3.判断当前点击是左边的箭头还是右边的箭头
+     *4.获得前一个banner或者后一个banner的索引 注意处理过界判断
+     *5.给前一个banner或者后一个banner添加动画效果(增加类名slideCur)，并且让这个banner显示
+     *
+     * aa.dataset.attr "prev" "next"
+     * 获取到自定义属性的值
+     * */
+    var slideAll = document.querySelectorAll('.slide');
+    var oPrev = document.querySelector('.prev');
+    var oNext = document.querySelector('.next');
+    var curIndex = 0;
+    oPrev.addEventListener('click', fn, false);
+    oNext.addEventListener('click', fn, false);
+    function fn() {
+        [].forEach.call(slideAll, function (item, index) {
+            var reg = /slideCur/;
+            if (reg.test(item.className)) {
+                curIndex = index;//
+            }
+            //把所有的slide的slideCur类名去掉，并且全部隐藏
+            item.classList.remove('slideCur');
+            item.style.display = 'none';
+        });
+        var attr = this.dataset.attr;//获得自定义属性的attr的值
+        if (attr == 'prev') {//点击左边箭头
+            curIndex = curIndex == 0 ? slideAll.length - 1 : curIndex -1;
+            console.log(curIndex);
+        } else if (attr == 'next') { //点击的是右边的箭头
+            curIndex = curIndex == slideAll.length - 1 ? 0 : curIndex + 1;
+
+        }
+     window.setTimeout(function(){
+         slideAll[curIndex].classList.add('slideCur');
+     },100);
+
+        slideAll[curIndex].style.display = 'block';
+    }
+
+</script>
+</body>
+</html>
